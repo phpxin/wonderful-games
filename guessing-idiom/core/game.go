@@ -7,6 +7,7 @@ import (
 	"math/rand"
 	"strconv"
 	"strings"
+	"wonderful-games/guessing-idiom/tools/log"
 )
 
 const (
@@ -46,6 +47,9 @@ func NewGame(idiom string) *Game {
 func (game *Game) GetResult() []*StageItem {
 	stage := make([]*StageItem, 0)
 	for idiomName,wordPoses := range game.IdiomPos {
+
+
+
 		stageItem := new(StageItem)
 		stageItem.Idiom = idiomName
 		idiomInfo,_ := Idioms[idiomName]
@@ -53,8 +57,11 @@ func (game *Game) GetResult() []*StageItem {
 
 		var buffer bytes.Buffer
 
+		log.Debug("", "name %s", idiomName)
+
 		for _,wordPos := range wordPoses {
-			if len(stageItem.Pos)>0 {
+			log.Debug("", "pos %+v", wordPos)
+			if buffer.Len()>0 {
 				buffer.WriteByte(';')
 			}
 
@@ -149,6 +156,8 @@ func (game *Game) FindResult(direction bool) { // true -x false |y
 
 		wps = append(wps, wp)
 	}
+
+
 
 	game.IdiomPos[game.Idiom] = wps
 
@@ -343,6 +352,7 @@ func (game *Game) dfs(wpIndex int32, wordPos *WordPos, direction bool, counter i
 				}
 				if game.Matrix[aiw_y][aiw_x] != nil && game.Matrix[aiw_y][aiw_x].Word == wp.Word {
 					// 已存在，不要覆盖它，保留原 WordPos 指针，因为回溯的时候如果被修改，下面的程序就会由于指针被修改，找不到准确的值
+					wps = append(wps, game.Matrix[aiw_y][aiw_x])
 					continue
 				}
 
@@ -350,6 +360,8 @@ func (game *Game) dfs(wpIndex int32, wordPos *WordPos, direction bool, counter i
 				wps = append(wps, wp)
 
 			}
+
+
 
 		} else {
 			// |
@@ -404,6 +416,7 @@ func (game *Game) dfs(wpIndex int32, wordPos *WordPos, direction bool, counter i
 
 				if game.Matrix[aiw_y][aiw_x] != nil && game.Matrix[aiw_y][aiw_x].Word == wp.Word {
 					// 已存在，不要覆盖它，保留原 WordPos 指针，因为回溯的时候如果被修改，下面的程序就会由于指针被修改，找不到准确的值
+					wps = append(wps, game.Matrix[aiw_y][aiw_x])
 					continue
 				}
 				game.Matrix[aiw_y][aiw_x] = wp
@@ -412,7 +425,7 @@ func (game *Game) dfs(wpIndex int32, wordPos *WordPos, direction bool, counter i
 
 		}
 		//break
-
+		log.Debug("", "%s pos len %d", ai, len(wps))
 		game.IdiomPos[ai] = wps
 
 		for k, wp := range wps {

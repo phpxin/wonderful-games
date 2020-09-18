@@ -16,6 +16,14 @@ import (
 func Run() {
 	e := gin.Default()
 
+	e.LoadHTMLGlob("html/*")
+	e.GET("/test", func(c *gin.Context) {
+		//log.Debug("", "123")
+		c.HTML(http.StatusOK, "index.html", gin.H{
+			"title": "Main website",
+		})
+	})
+
 	game := new(GameController)
 	e.Handle(http.MethodGet, "/game/stage/get", game.Getstage)
 
