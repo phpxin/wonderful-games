@@ -1,3 +1,4 @@
 guessing-idiom
 *.tar.gz
 .idea
+conf/conf.ini
