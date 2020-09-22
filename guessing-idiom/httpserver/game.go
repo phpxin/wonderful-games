@@ -28,10 +28,8 @@ func (c *GameController) Getstage(ctx *gin.Context) {
 	stages, err := models.GetStages(int32(level), int32(limit))
 	if err != nil {
 		if err == gorm.ErrRecordNotFound {
-			//c.apiError(errcode.NotFound, "stage not found")
 			c.JsonError(ctx, core.ApiErrMsg, "stage not found")
 		}
-		//c.apiError(errcode.InnerError, "")
 		c.JsonError(ctx, core.ApiErrMsg, "inner error")
 		return
 	}

@@ -7,10 +7,7 @@ import (
 var (
 	configFp *ini.File
 
-	//ServerID int64
-	//ServerName string
-	//
-	//Env = EnvDev
+
 )
 
 func GetConfigInt(section,name string) (int64,error) {
@@ -28,22 +25,6 @@ func ParseConfigINI(cpath string) (err error) {
 		return err
 	}
 
-	//rand.Seed(time.Now().Unix())
-	//ServerID = rand.Int63()
-
-	//hostName,e := os.Hostname()
-	//
-	//if e!=nil {
-	//	hostName = fmt.Sprintf("no-hostname-%d", ServerID)
-	//}
-
-	//ServerName = fmt.Sprintf("%s:%s",
-	//	hostName,
-	//	GetConfigString("ws", "port"))
-	//
-	//if appEnv := GetConfigString("app", "environment"); appEnv!="" {
-	//	Env = appEnv
-	//}
 
 	return nil
 }

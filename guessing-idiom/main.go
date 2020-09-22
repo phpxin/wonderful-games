@@ -28,7 +28,6 @@ var (
 
 func main() {
 
-	// runtime.NumCPU()
 
 	if len(os.Args) < 2 {
 		fmt.Println("usage : ./pushserver {path of config}")
@@ -81,7 +80,6 @@ func sigAwaiter() {
 	// 进程退出需要处理的逻辑
 	logger.DestroyLogger() // 刷日志
 
-	// time.Sleep(3*time.Second) // 暂停 3 秒钟，等待后台任务结束 todo 延迟关闭会有不同步问题，上线看实际情况定
 
 	fmt.Println("process exit.")
 

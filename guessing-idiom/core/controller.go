@@ -33,8 +33,6 @@ type BaseController struct {
 }
 
 func (ctrl *BaseController) JsonHandler(c *gin.Context, data map[string]interface{}, code int32, msg string) {
-	//c.Header("Access-Control-Allow-Origin", "*")
-
 
 	if code!=ApiSuccess {
 		ctrl.JsonError(c, code, msg)
@@ -42,15 +40,7 @@ func (ctrl *BaseController) JsonHandler(c *gin.Context, data map[string]interfac
 		ctrl.JsonSuccess(c, data)
 	}
 
-	//ret := &ApiRet{
-	//	Code: ApiSuccess,
-	//	Msg:  "",
-	//	Data: data,
-	//}
-	//
-	////c.Response().Header().Set("Access-Control-Allow-Origin", "*")
-	//
-	//c.JSON(http.StatusOK, ret)
+
 }
 
 func (ctrl *BaseController) JsonSuccess(c *gin.Context, data map[string]interface{}) {
@@ -60,7 +50,6 @@ func (ctrl *BaseController) JsonSuccess(c *gin.Context, data map[string]interfac
 		Data: data,
 	}
 
-	//c.Response().Header().Set("Access-Control-Allow-Origin", "*")
 
 	c.JSON(http.StatusOK, ret)
 }
@@ -71,9 +60,6 @@ func (ctrl *BaseController) JsonError(c *gin.Context, code int32, msg string) {
 		Msg:  msg,
 	}
 
-	//c.Response().Header().Set("Access-Control-Allow-Origin", "*")
-
-	//c.BindHeader()
 
 	c.JSON(http.StatusOK, ret)
 }
