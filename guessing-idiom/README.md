@@ -1,4 +1,4 @@
-todo
+### todo
 
 分享
 
@@ -6,5 +6,13 @@ todo
 
 小程序
 
-go build -o guessing-idiom .
-GOARCH=amd64 GOOS=linux go build -o guessing-idiom-linux .
+
+### 构建   
+
+本机
+
+go build -o guessing-idiom .       
+
+linux
+
+GOARCH=amd64 GOOS=linux go build -o guessing-idiom-linux .      
