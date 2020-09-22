@@ -7,6 +7,7 @@ import (
 	"wonderful-games/guessing-idiom/core"
 	"wonderful-games/guessing-idiom/models"
 	"wonderful-games/guessing-idiom/tools/log"
+	"wonderful-games/guessing-idiom/tools/rpchelper"
 )
 
 type GamemasterController struct {
@@ -20,6 +21,12 @@ func (c *GamemasterController) Test(ctx *gin.Context){
 }
 
 func (c *GamemasterController) Creategames(ctx *gin.Context) {
+
+	token := rpchelper.RequestParameterString(ctx, "token")
+	if token!="uuuuiiii****yyyy" {
+		c.JsonError(ctx, core.ApiErrMsg, "auth failed")
+		return
+	}
 
 	go func() {
 		i:=0

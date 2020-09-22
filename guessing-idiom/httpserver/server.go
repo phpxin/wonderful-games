@@ -16,12 +16,17 @@ import (
 func Run() {
 	e := gin.Default()
 
-	e.LoadHTMLGlob("html/*")
-	e.GET("/test", func(c *gin.Context) {
-		//log.Debug("", "123")
-		c.HTML(http.StatusOK, "index.html", gin.H{
-			"title": "Main website",
-		})
+	//e.LoadHTMLGlob("html/*")
+	//e.GET("/test", func(c *gin.Context) {
+	//	//log.Debug("", "123")
+	//	c.HTML(http.StatusOK, "index.html", gin.H{
+	//		"title": "Main website",
+	//	})
+	//})
+
+	e.Static("/game/idioms", "./html/")
+	e.Handle(http.MethodGet, "/", func(context *gin.Context) {
+		context.String(http.StatusOK, "Hi! 👈跟我一起画个🐲，在你👉划一道🌈")
 	})
 
 	game := new(GameController)
