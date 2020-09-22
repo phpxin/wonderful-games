@@ -30,7 +30,7 @@ func main() {
 
 
 	if len(os.Args) < 2 {
-		fmt.Println("usage : ./pushserver {path of config}")
+		fmt.Println("usage : ./guessing-idiom {path of config}")
 		os.Exit(1)
 	}
 	confpath := os.Args[1]

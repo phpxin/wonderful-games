@@ -46,10 +46,19 @@ func NewGame(idiom string) *Game {
 
 func (game *Game) GetResult() []*StageItem {
 	stage := make([]*StageItem, 0)
+
+	hiddenIndexes := make(map[*Position]int)
+
+	for _,wordPoses := range game.IdiomPos {
+		invisible := int(rand.Uint32()%4)
+		for i,wordPos := range wordPoses {
+			if i==invisible {
+				hiddenIndexes[wordPos.Pos] = 0
+			}
+		}
+	}
+
 	for idiomName,wordPoses := range game.IdiomPos {
-
-
-
 		stageItem := new(StageItem)
 		stageItem.Idiom = idiomName
 		idiomInfo,_ := Idioms[idiomName]
@@ -59,7 +68,8 @@ func (game *Game) GetResult() []*StageItem {
 
 		log.Debug("", "name %s", idiomName)
 
-		for _,wordPos := range wordPoses {
+		visables := make([]string, 4)
+		for i,wordPos := range wordPoses {
 			log.Debug("", "pos %+v", wordPos)
 			if buffer.Len()>0 {
 				buffer.WriteByte(';')
@@ -68,21 +78,15 @@ func (game *Game) GetResult() []*StageItem {
 			buffer.WriteString(strconv.Itoa(int(wordPos.Pos.X))) // x,y
 			buffer.WriteByte(',') // x,y
 			buffer.WriteString(strconv.Itoa(int(wordPos.Pos.Y))) // x,y
-		}
 
-		stageItem.Pos = buffer.String()
-
-		visables := make([]string, 4)
-		invisible := int(rand.Uint32()%4)
-		for i:=0;i<4;i++ {
-
-			if i==invisible {
+			if _,ok := hiddenIndexes[wordPos.Pos]; ok {
 				visables[i] = "0"
 			}else{
 				visables[i] = "1"
 			}
-
 		}
+
+		stageItem.Pos = buffer.String()
 
 		stageItem.Vis = strings.Join(visables, "")
 		stage = append(stage, stageItem)

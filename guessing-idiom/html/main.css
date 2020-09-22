@@ -6,6 +6,17 @@
     padding-top: 4px;
     padding-left: 7px;
 }
+.btn-active{
+    width:200px;
+    line-height: 30px;
+    background: cornflowerblue;
+    border-color: blue;
+    color: aliceblue;
+    border-radius: 6px ;
+}
+#next,#reload{
+    display: none;
+}
 div.bg-line {
     width: 100%;
     float: left;
